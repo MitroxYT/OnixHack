@@ -7,11 +7,11 @@
   "authors": ["You"],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/rich/textures/capes/cape.png",
+  "icon": "assets/onix/textures/capes/cape.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "rich.Initialization"
+      "onix.Initialization"
     ]
   },
   "mixins": [
