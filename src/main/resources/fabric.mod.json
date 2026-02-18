@@ -10,9 +10,6 @@
   "icon": "assets/rich/textures/capes/cape.png",
   "environment": "client",
   "entrypoints": {
-    "preLaunch": [
-      "rich.util.mods.config.wave.WaveCapesConfigOverride"
-    ],
     "client": [
       "rich.Initialization"
     ]
