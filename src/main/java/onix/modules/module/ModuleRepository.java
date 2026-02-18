@@ -32,6 +32,7 @@ public class ModuleRepository {
                 .add(new AutoTool())
                 .add(new RegionExploit())
                 .add(new WorldParticles())
+                .add(new PacketDebugger())
                 .add(new Arrows())
                 .add(new Particles())
                 .add(new AuctionHelper())
