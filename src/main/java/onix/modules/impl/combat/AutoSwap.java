@@ -132,7 +132,7 @@ public class AutoSwap extends ModuleStructure {
         final int slotId = targetSlot.id;
 
         executor.execute(() -> {
-            InventoryUtils.swap(slotId, 45);
+            InventoryUtils.swapOffhandWithSlot(slotId);
         }, settings);
     }
 
