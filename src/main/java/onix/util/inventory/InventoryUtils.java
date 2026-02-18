@@ -291,10 +291,9 @@ public final class InventoryUtils {
     }
 
     public static void swap(int from, int to) {
-        click(from,40,SlotActionType.SWAP);
-//        click(from, 0, SlotActionType.PICKUP);
-//        click(to, 0, SlotActionType.PICKUP);
-//        click(from, 0, SlotActionType.PICKUP);
+        click(from, 0, SlotActionType.PICKUP);
+        click(to, 0, SlotActionType.PICKUP);
+        click(from, 0, SlotActionType.PICKUP);
     }
 
     public static void swapHotbar(int slot, int hotbarSlot) {
