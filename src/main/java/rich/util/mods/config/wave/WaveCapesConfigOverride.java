@@ -6,7 +6,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
+/*
 public class WaveCapesConfigOverride implements PreLaunchEntrypoint {
 
     private static final String CONFIG_CONTENT = """
@@ -33,4 +33,4 @@ public class WaveCapesConfigOverride implements PreLaunchEntrypoint {
         }
     }
     
-}
+}*/
