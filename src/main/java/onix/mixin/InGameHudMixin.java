@@ -6,10 +6,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import onix.events.impl.DeathScreenEvent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -115,6 +117,10 @@ public abstract class InGameHudMixin implements IMinecraft {
                     && Initialization.getInstance().getManager().getHudManager() != null) {
                 Initialization.getInstance().getManager().getHudManager().render(context, tickDelta, mouseX, mouseY);
             }
+        }
+        if (mc != null && mc.currentScreen instanceof DeathScreen) {
+            var de = new DeathScreenEvent(0);
+            EventManager.callEvent(de);
         }
 
         Render2D.endOverlay();
