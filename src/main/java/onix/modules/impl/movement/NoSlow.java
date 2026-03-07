@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
+import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -15,7 +16,9 @@ import onix.events.impl.TickEvent;
 import onix.events.impl.UsingItemEvent;
 import onix.modules.module.ModuleStructure;
 import onix.modules.module.category.ModuleCategory;
+import onix.modules.module.setting.implement.BooleanSetting;
 import onix.modules.module.setting.implement.SelectSetting;
+import onix.modules.module.setting.implement.SliderSettings;
 import onix.util.Instance;
 import onix.util.inventory.script.Script;
 import onix.util.string.PlayerInteractionHelper;
@@ -31,11 +34,13 @@ public class NoSlow extends ModuleStructure {
     private final Script script = new Script();
     private boolean finish;
 
-    public final SelectSetting itemMode = new SelectSetting("Режим предмета", "Выберите режим обхода").value("Grim Old", "ReallyWorld", "SpookyTime", "Funtime");
-
+    public final SelectSetting itemMode = new SelectSetting("Режим предмета", "Выберите режим обхода").value("Grim Old", "ReallyWorld", "SpookyTime", "Funtime","Custom");
+    public final BooleanSetting invalidMainSlot = new BooleanSetting("InvalidMainSlot","Невалидный Маин слот").visible(()-> itemMode.isSelected("Custom"));
+    public final BooleanSetting customMotion = new BooleanSetting("CustomMotion","Фактор Движения").visible(()-> itemMode.isSelected("Custom"));
+    public final SliderSettings motionXz = new SliderSettings("MotionXz","motion").setMin(0.2F).setMax(1.0F).visible(()-> customMotion.isValue());
     public NoSlow() {
         super("NoSlow", "No Slow", ModuleCategory.MOVEMENT);
-        settings(itemMode);
+        settings(itemMode,invalidMainSlot,customMotion,motionXz);
     }
 
     private int ticks = 0;
@@ -163,6 +168,16 @@ public class NoSlow extends ModuleStructure {
                         ticks = 0;
                     }
                 }
+            }
+            case "Custom" -> {
+                if (invalidMainSlot.isValue()) {
+
+                    mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(mc.player.getInventory().getSelectedSlot()));
+                }
+                if (customMotion.isValue()) {
+                    mc.player.setVelocity(mc.player.getVelocity().getX() * motionXz.getValue(),mc.player.getVelocity().getY(),mc.player.getVelocity().getZ() * motionXz.getValue());
+                }
+                e.setCancelled(true);
             }
         }
     }

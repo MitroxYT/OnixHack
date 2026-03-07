@@ -14,12 +14,11 @@ public class VertexAngle extends RotateConstructor {
 
     @Override
     public Angle limitAngleChange(Angle currentAngle, Angle targetAngle, Vec3d vec3d, Entity entity) {
-        Aura aura = Aura.getInstance();
         Angle angleDelta = MathAngle.calculateDelta(currentAngle, targetAngle);
         float yawDelta = angleDelta.getYaw(), pitchDelta = angleDelta.getPitch();
         Angle moveAngle = new Angle(currentAngle.getYaw(), currentAngle.getPitch());
-        moveAngle.setYaw( currentAngle.getYaw() + yawDelta);
-        moveAngle.setPitch( currentAngle.getPitch() + pitchDelta);
+        moveAngle.setYaw(currentAngle.getYaw() + yawDelta);
+        moveAngle.setPitch(currentAngle.getPitch() + pitchDelta);
         return moveAngle;
     }
 

@@ -2,6 +2,7 @@ package onix.modules.impl.misc;
 
 import net.minecraft.network.packet.c2s.common.CommonPongC2SPacket;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
+import net.minecraft.network.packet.s2c.common.CommonPingS2CPacket;
 import onix.events.api.EventHandler;
 import onix.events.impl.PacketEvent;
 import onix.modules.module.ModuleStructure;
@@ -20,8 +21,8 @@ public class PacketDebugger extends ModuleStructure {
         if (event.getPacket() instanceof ClickSlotC2SPacket packet && debugValues.isSelected("InventoryClicks")) {
             ChatMessage.brandmessage("[click] slot: " + packet.slot() + " action: " + packet.actionType() + " clickID: " + packet.button());
         }
-        if (event.getPacket() instanceof CommonPongC2SPacket packet && debugValues.isSelected("Transaction")) {
-            ChatMessage.brandmessage("[pong] id: " + packet.getParameter());
+        if (event.getPacket() instanceof CommonPingS2CPacket packet && debugValues.isSelected("Transaction")) {
+            ChatMessage.brandmessage("[ping] id: " + packet.getParameter());
         }
     }
 }
